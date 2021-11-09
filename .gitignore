@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# folder with binaries
+/build-source-Desktop_Qt_6_1_0_MinGW_64_bit-Debug
+
+# builder config 
+/source/CMakeLists.txt.user
