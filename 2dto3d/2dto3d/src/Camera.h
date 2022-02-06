@@ -44,7 +44,7 @@ private:
 
 	glm::vec3 m_up = glm::cross(m_right, m_direction);
 	
-	
+	unsigned int m_FrameCount = 0;
 
 	//int Comparekey(const int pressedKey);
 

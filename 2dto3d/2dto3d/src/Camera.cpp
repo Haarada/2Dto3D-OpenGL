@@ -39,16 +39,23 @@ void Camera::CalculateMovement()
 void Camera::CheckFuncKeys()
 {
 	m_DeltaTime = m_CurrentTime - m_LastTime;
-
+	m_FrameCount++;
+	if (m_FrameCount * m_DeltaTime > 1)
+	{
+		std::cout << "FPS: " << 1.0f / m_DeltaTime << "	| Frame time: " << m_DeltaTime * 1000 << " ms\n";
+		m_FrameCount = 0;
+	}
+	//std::cout << "Frametime:" << m_DeltaTime*1000 << "\n";
+	//std::cout << "FPS:" << 1.0f / m_DeltaTime << "\n";
 	// angles
 	if (glfwGetKey(m_WindowHandle, GLFW_KEY_UP) == GLFW_PRESS)
 		m_VeritcalAngle += m_RotationSpeed * m_DeltaTime;
 	if (glfwGetKey(m_WindowHandle, GLFW_KEY_DOWN) == GLFW_PRESS)
 		m_VeritcalAngle -= m_RotationSpeed * m_DeltaTime;
 	if (glfwGetKey(m_WindowHandle, GLFW_KEY_LEFT) == GLFW_PRESS)
-		m_HorizontalAngle -= m_RotationSpeed * m_DeltaTime;
-	if (glfwGetKey(m_WindowHandle, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		m_HorizontalAngle += m_RotationSpeed * m_DeltaTime;
+	if (glfwGetKey(m_WindowHandle, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		m_HorizontalAngle -= m_RotationSpeed * m_DeltaTime;
 
 	CalculateMovement();
 
@@ -58,9 +65,9 @@ void Camera::CheckFuncKeys()
 	if (glfwGetKey(m_WindowHandle, GLFW_KEY_S) == GLFW_PRESS)
 		m_Position -= m_direction * m_DeltaTime * m_MovementSpeed;
 	if (glfwGetKey(m_WindowHandle, GLFW_KEY_A) == GLFW_PRESS)
-		m_Position += m_right * m_DeltaTime * m_MovementSpeed;
-	if (glfwGetKey(m_WindowHandle, GLFW_KEY_D) == GLFW_PRESS)
 		m_Position -= m_right * m_DeltaTime * m_MovementSpeed;
+	if (glfwGetKey(m_WindowHandle, GLFW_KEY_D) == GLFW_PRESS)
+		m_Position += m_right * m_DeltaTime * m_MovementSpeed;
 
 	
 

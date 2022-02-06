@@ -14,10 +14,12 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "Camera.h"
+#include "ImageData.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+
 //#include "offsite/glm/gtx/transform.hpp"
 //GLFW_KEY_UP
 struct ShaderProgramSource
@@ -116,29 +118,51 @@ int main(void)
         return -1;
      
     
-    int windowWidth = 1280;
-    int windowHeight = 720;
+    int windowWidth = 1920;
+    int windowHeight = 1080;
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(windowWidth, windowHeight, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(windowWidth, windowHeight, "OpenGL renderer", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
         return -1;
     }
-
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
+    glfwSwapInterval(0); // disabling V-sync
 
     /* GLEW initialization */
     if (glewInit() != GLEW_OK)
         std::cout << "GLEW init error!\n";
 
     std::cout << glGetString(GL_VERSION) << "\n";
+    
+    std::string MapColor = "color.png";
+    std::string MapHeight = "height.png";
+
+    glEnable(GL_DEPTH_TEST);
+    // Accept fragment if it closer to the camera than the former one
+    glDepthFunc(GL_LESS);
+
+
+    ImageData Map(MapColor, MapHeight);
+    Map.LoadImageColor();
+    Map.LoadImageDepth();
+    Map.GeneratePositionsVec();
+    Map.GeneratePositionsPtr();
+    Map.GenerateIndiecies();
+    Map.GenerateColor();
+
+    float* colors = Map.GetColorPtr();
+    float* positions = Map.GetPositionPtr();
+    unsigned int* indices = Map.GetIndiecies();
+
 
     /* Buffer */
+    /*
     float positions[] = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
+        -0.5f, -0.5f, -0.5f,
+        0.5f, -0.5f, -0.5f,
         0.5f, 0.5f, 0.0f,
         -0.5f, 0.5f, 0.0f
 
@@ -148,17 +172,18 @@ int main(void)
         0, 1, 2,
         2, 3, 0
     };
-
+    */
     unsigned int vao; // verex array object id
     GLCall(glGenVertexArrays(1, &vao));
     GLCall(glBindVertexArray(vao));
 
-    VertexBuffer vb(positions, 4 * 3 * sizeof(float));
+    VertexBuffer vb(positions, Map.GetPositionPtrSize() * sizeof(float));
     
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
     
-    IndexBuffer ib(indices, 8);
+    unsigned int number = 1024 * 1024*6 -2048*6;
+    IndexBuffer ib(indices, number);
 
     // GLSL GL shading language
     ShaderProgramSource source = ParseShader("resources/shaders/basicshader.shader");
@@ -179,6 +204,11 @@ int main(void)
     
 
     unsigned int MatrixMVP = glGetUniformLocation(shader, "MVP");
+
+    unsigned int colorbuffer;
+    glGenBuffers(1, &colorbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+    glBufferData(GL_ARRAY_BUFFER, Map.GetPositionPtrSize() * sizeof(float), colors, GL_STATIC_DRAW);
     
     Camera mainCamera(window);
     mainCamera.CheckTime();
@@ -187,7 +217,7 @@ int main(void)
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         mainCamera.CheckTime();
         mainCamera.CheckFuncKeys();
@@ -196,9 +226,12 @@ int main(void)
         Projection = mainCamera.ProjectionMatrix();
         View = mainCamera.ViewMatrix();
         Model = glm::mat4(1.0);
+        glm::mat4 mvp = Projection * View * Model; 
 
-        // Our ModelViewProjection : multiplication of our 3 matrices
-        glm::mat4 mvp = Projection * View * Model; // Remember, matrix multiplication is the other way around
+        glEnableVertexAttribArray(1);
+        glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
 
         glUseProgram(shader);
 
@@ -207,14 +240,13 @@ int main(void)
         GLCall(glBindVertexArray(vao));
         ib.Bind();
 
-        GLCall(glDrawElements(GL_TRIANGLES, 8, GL_UNSIGNED_INT, nullptr));
-        //glDrawArrays(GL_TRIANGLES, 0, 6);
+        GLCall(glDrawElements(GL_TRIANGLES, number, GL_UNSIGNED_INT, nullptr));
+        //glDrawArrays(GL_TRIANGLES, 0, 10000);
         //glDrawElements(GL_TRIANGLES, )
 
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
+        glDisableVertexAttribArray(1);
 
-        /* Poll for and process events */
+        glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
