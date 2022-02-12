@@ -1,13 +1,26 @@
-# cpp-project
+# 2Dto3D
+2Dto3D is an OpenGL program that renders 3D map from a given 2D texutre map and 2D height map.
 
-W projekcie planuję napiszać program, który na podstawie stworzonej wcześniej grafiki 2d lub stworzonej bezpośrednio w programie ( razem z mapą wysokości) będzie zamieniać na grafikę "3d".
+Developed mainly with Windows in mind (32 bit). In the future I will try to make this program more cross-platform.
 
-Interfejs graficzny planuję napisać w Qt, a grafikę przy pomocy OpenGL oraz bibliotek wspomagających (GLFW oraz najprawdopodobniej GLEW)
+Compiled with Visual Studio 2019 (Platform Toolset v142).
 
-Ze względu na brak doświadczenia w użyciu biblioteki GLFW(OpenGL) ciężko mi określić daty, w których wykonam poszczególne komponenty.
-
-Do końca listopada planuję wykonać szkielet aplikacji (interfejs graficzny) razem z ładowaniem plików graficznych.
-W późniejszym czasie planuję zająć się tworzeniem silnika graficznego w OpenGL 
+I'm planning to make installation guide Soon™
 
 
-Qt + OpenGL(GLFW) + GLEW/GLAD
+
+Dependencies:
+pre-compiled (.lib) - place in dependencies32/
+- GLFW (https://www.glfw.org/)
+- GLEW (http://glew.sourceforge.net/)
+
+
+header libraries - place in 2dto3d/src/offsite/
+- CImg (https://cimg.eu/)
+	(with ImageMagick legacy tools - planning to change it to something different)
+
+- GLM (https://github.com/g-truc/glm/)
+
+Example screenshot:
+
+![Screenshot with working program](docs/images/2Dto3D-demo.png)
