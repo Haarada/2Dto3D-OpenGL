@@ -31,6 +31,10 @@
 *.out
 *.app
 
+2dto3d/.vs/*
+2dto3d/Debug/*
+2dto3d/2dto3d/Debug/*
+
 # folder with binaries
 /build-source-Desktop_Qt_6_1_0_MinGW_64_bit-Debug
 
