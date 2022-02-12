@@ -118,8 +118,8 @@ int main(void)
         return -1;
      
     
-    int windowWidth = 1920;
-    int windowHeight = 1080;
+    int windowWidth = 1280;
+    int windowHeight = 720;
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(windowWidth, windowHeight, "OpenGL renderer", NULL, NULL);
     if (!window)

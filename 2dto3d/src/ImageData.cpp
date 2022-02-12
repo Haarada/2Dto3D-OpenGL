@@ -32,9 +32,7 @@ void ImageData::SetDepthMapLocation(std::string DepthMapLocation)
 
 void ImageData::LoadImageColor()
 {
-	std::cout << "Przed cimg\n";
 	CImg<unsigned char> imageColor(m_ColorMapLocation.c_str());
-	std::cout << "Po cimg\n";
 	m_Width = imageColor.width();
 	m_Height = imageColor.height();
 	

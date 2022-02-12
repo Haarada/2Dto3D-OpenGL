@@ -36,6 +36,8 @@
 .vs/*
 2dto3d/Debug/*
 Debug/*
+Release/*
+2dto3d/Release/*
 
 # Guide files (where to install libraries):
 2dto3d/src/offsite/*
