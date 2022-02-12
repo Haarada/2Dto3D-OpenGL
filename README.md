@@ -1,4 +1,4 @@
-#2Dto3D
+# 2Dto3D
 2Dto3D is an OpenGL program that renders 3D map from a given 2D texutre map and 2D height map.
 
 Developed mainly with Windows in mind (32 bit). In the future I will try to make this program more cross-platform.
