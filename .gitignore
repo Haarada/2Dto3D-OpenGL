@@ -31,12 +31,23 @@
 *.out
 *.app
 
+# Hide locations with temp/executable files
+
 .vs/*
 2dto3d/Debug/*
 Debug/*
 
-# folder with binaries
-/build-source-Desktop_Qt_6_1_0_MinGW_64_bit-Debug
+# Guide files (where to install libraries):
+2dto3d/src/offsite/*
+!2dto3d/src/offsite/Place-GLM-folder-and-CImg-header-here
 
-# builder config 
-/source/CMakeLists.txt.user
+dependencies32/GLEW/*
+!dependencies32/GLEW/Place-GLEW-lib-and-include-folders-here
+
+dependencies32/GLFW/*
+dependencies32/GLFW/Place-GLFW-lib-and-include-folders-here
+
+dependencies64/*
+dependencies64/TODO
+
+!2dto3d/src/offsite/Place-GLM-folder-and-CImg-header-here
