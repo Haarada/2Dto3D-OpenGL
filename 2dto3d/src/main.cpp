@@ -137,8 +137,8 @@ int main(void)
 
     std::cout << glGetString(GL_VERSION) << "\n";
     
-    std::string MapColor = "color.png";
-    std::string MapHeight = "height.png";
+    std::string MapColor = "resources\\maps\\color.png";
+    std::string MapHeight = "resources\\maps\\height.png";
 
     glEnable(GL_DEPTH_TEST);
     // Accept fragment if it closer to the camera than the former one
