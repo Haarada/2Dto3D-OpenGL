@@ -121,7 +121,7 @@ int main(void)
     int windowWidth = 1280;
     int windowHeight = 720;
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(windowWidth, windowHeight, "2Dto3D-OpenGL by Haarada | latest version (13.02.2022)", NULL, NULL);
+    window = glfwCreateWindow(windowWidth, windowHeight, "2Dto3D-OpenGL by Haarada | stable-0.22.44.1", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
