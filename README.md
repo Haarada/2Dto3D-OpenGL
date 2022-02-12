@@ -1,25 +1,27 @@
 # 2Dto3D
-2Dto3D is an OpenGL program that renders 3D map from a given 2D texutre map and 2D height map.
+<ul>
+<li>2Dto3D is an OpenGL program that renders 3D map from a given 2D texutre map and 2D height map.</li>
 
-Developed mainly with Windows in mind (32 bit). In the future I will try to make this program more cross-platform.
+<li>Developed mainly with Windows in mind (32 bit). In the future I will try to make this program more cross-platform.</li>
 
-Compiled with Visual Studio 2019 (Platform Toolset v142).
+<li>Compiled with Visual Studio 2019 (Platform Toolset v142).</li>
 
-I'm planning to make installation guide Soon™
+<li>I'm planning to make installation guide Soon™</li>
+</ul>
+
+</br>
+
+Dependencies:</br>
+- pre-compiled (.lib) - placed in dependencies32/
+	- GLFW (https://www.glfw.org/)
+	- GLEW (http://glew.sourceforge.net/)
 
 
+- header libraries - placed in 2dto3d/src/offsite/
+	- CImg (https://cimg.eu/)
+		(with ImageMagick legacy tools - planning to change it to something different)
 
-Dependencies:
-pre-compiled (.lib) - place in dependencies32/
-- GLFW (https://www.glfw.org/)
-- GLEW (http://glew.sourceforge.net/)
-
-
-header libraries - place in 2dto3d/src/offsite/
-- CImg (https://cimg.eu/)
-	(with ImageMagick legacy tools - planning to change it to something different)
-
-- GLM (https://github.com/g-truc/glm/)
+	- GLM (https://github.com/g-truc/glm/)
 
 Example screenshot:
 
