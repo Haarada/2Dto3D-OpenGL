@@ -31,8 +31,8 @@
 *.out
 *.app
 
-# Hide locations with temp/executable files
 
+# Hide locations with temp/executable files
 .vs/*
 2dto3d/Debug/*
 Debug/*
